@@ -1,5 +1,14 @@
 // Local Variables
-const projectData = [];
+
+//Dummy End point
+const projectData = {
+    temperature: 16,
+    date: `${Date()}`,
+    response: 'Some Dummy Response'
+};
+
+// Temperature Data
+const TemperatureData = [];
 
 // Setup Express as Server
 const express = require('express')
@@ -27,6 +36,22 @@ app.listen(port, () => console.log(`Server has been started
 
 // Routing Configuration
 
-//Get
-app.get('/', (req, res) => res.send('Get Received'));
-app.get('/all', (req, res) => res.send(projectData));
+//GET route
+app.get('/', (req, res) => res.send(projectData));
+app.get('/all', (req, res) => res.send(TemperatureData));
+
+
+//POST route
+/* 
+The POST route should anticipate receiving three pieces of data from the request body
+temperature
+date
+user response 
+*/
+app.post('/new', (req, res) => {
+    TemperatureData.push({ temperature: req.body.temperature, date: req.body.date, response: req.body.response });
+    res.send(TemperatureData);
+});
+
+
+

@@ -29,3 +29,9 @@ const getData = async (url = '') => {
     }
 }
 
+postData('/new', { temperature: 21, date: Date(), response: 'some response' }).then(data => {
+    console.log(data);
+    getData('/all').then(data => console.log(`all data = ${JSON.stringify(data)}`));
+});
+
+
