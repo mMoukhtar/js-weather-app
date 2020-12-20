@@ -1,0 +1,38 @@
+body {
+  font-size: 16px;
+  color: green;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  font-size: 1.1em;
+}
+.inputRow,
+#entryHolder {
+  margin: 0.5rem 2rem;
+}
+.inputRow label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.inputRow input {
+  display: block;
+  width: 100%;
+}
+
+.inputRow textarea {
+  display: block;
+  width: 100%;
+}
+
+.inputRow button {
+  width: 150px;
+  height: 40px;
+  font-size: 1.1em;
+  background-color: yellowgreen;
+  border: 0px solid yellowgreen;
+}
