@@ -19,12 +19,9 @@ body {
   margin: 0.5rem 0;
 }
 
-.inputRow input {
-  display: block;
-  width: 100%;
-}
-
-.inputRow textarea {
+.inputRow input,
+.inputRow textarea,
+.inputRow select {
   display: block;
   width: 100%;
 }
