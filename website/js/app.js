@@ -16,12 +16,14 @@ function generateBtnOnClick(event) {
     const feeling = document.getElementById('feeling').value;
     getCurrentWeatherAsync(zipCode, countryCode, feeling).then(data => {
         //Add new weather entry
+        //question, the add weatherEntry is an async function which call a sync function does it has to be a sync function as well?
         addWeatherEntry(data);
         //Update UI with data
+        //question, why I don't need to use await before the function call? is because I am calling from inside async function
         updateUI();
     });
 }
-//49546
+
 // Main Functions
 //Open Weather Map API
 
@@ -36,7 +38,7 @@ async function getCurrentWeatherAsync(zipCode, countryCode, feeling) {
         //const data = await getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`)
         await getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`).then(data => {
             newEntry = { temperature: data.main.temp, date: Date(), response: feeling };
-            //Question, why when I use return inside the then method it fail to and I recieve undefind object in line 18 when I call this function?!!
+            //Question, why when I use return inside the then method it fail to and I recieve undefind object in line 17 when I call this function?!!
             // return newEntry;
         });
         return newEntry;
@@ -46,8 +48,9 @@ async function getCurrentWeatherAsync(zipCode, countryCode, feeling) {
 }
 
 // Add new Weather Entry
+// Question, is the follow function declaration is correct? is it possible to use a not sync function to call a sync function?
 function addWeatherEntry(newEntry) {
-    postData('/new', newEntry).then();
+    postData('/new', newEntry);
 }
 
 // Update UI
