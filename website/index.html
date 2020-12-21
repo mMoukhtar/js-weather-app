@@ -14,17 +14,26 @@
     </header>
     <main id="main">
         <div class="inputRow">
-            <label for="zip">Please Enter Zip Code:</label>
+            <label for="zip" class="rowLabel">Please Enter Zip Code:</label>
             <input type="text" id="zip" placeholder="enter zip code here">
         </div>
         <div class="inputRow">
-            <label for="countries">Please Select a country:</label>
+            <label for="countries" class="rowLabel">Please Select a country:</label>
             <select id="countries">
                 <option value="us">USA</option>
             </select>
         </div>
         <div class="inputRow">
-            <label for="feeling">How are you feeling today?</label>
+            <label for="units" class="rowLabel">Please Select Unit:</label>
+            <div>
+                <input id="metric" type="radio" name="units" value="metric" checked="true">
+                <label for="metric" class="radioLabel">Metric</label>
+                <input type="radio" name="units" value="imperial">
+                <label for="imperial" class="radioLabel">Imperial</label>
+            </div>
+        </div>
+        <div class="inputRow">
+            <label for="feeling" class="rowLabel">How are you feeling today?</label>
             <textarea id="feeling" cols="50" rows="10" placeholder="enter your feeling here"></textarea>
         </div>
         <div class="inputRow">

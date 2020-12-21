@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  color: green;
 }
 
 #main {
@@ -18,16 +17,18 @@ body {
 #entryHolder {
   margin: 0.5rem 2rem;
 }
-.inputRow label {
-  display: block;
-  margin: 0.5rem 0;
-}
 
-.inputRow input,
-.inputRow textarea,
-.inputRow select {
+.inputRow > input[type="text"],
+.inputRow > textarea,
+.inputRow > select {
   display: block;
   width: 100%;
+}
+
+.rowLabel {
+  display: block;
+  color: green;
+  margin: 0.5rem 0;
 }
 
 .inputRow button {
@@ -36,4 +37,8 @@ body {
   font-size: 1.1em;
   background-color: yellowgreen;
   border: 0px solid yellowgreen;
+}
+
+.radioLabel {
+  display: inline;
 }

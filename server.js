@@ -7,9 +7,6 @@ const projectData = {
     response: 'Some Dummy Response'
 };
 
-// Temperature Data
-const TemperatureData = [];
-
 // Setup Express as Server
 const express = require('express')
 const app = express();
@@ -38,7 +35,7 @@ app.listen(port, () => console.log(`Server has been started
 
 //GET route
 app.get('/', (req, res) => res.send(projectData));
-app.get('/all', (req, res) => res.send(TemperatureData));
+app.get('/all', (req, res) => res.send(projectData));
 
 
 //POST route
@@ -49,8 +46,10 @@ date
 user response 
 */
 app.post('/new', (req, res) => {
-    TemperatureData.push({ temperature: req.body.temperature, date: req.body.date, response: req.body.response });
-    res.send(TemperatureData);
+    projectData.temperature = req.body.temperature
+    projectData.date = req.body.date
+    projectData.response = req.body.response
+    res.send(projectData);
 });
 
 
