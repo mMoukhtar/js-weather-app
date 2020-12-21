@@ -14,36 +14,54 @@ function generateBtnOnClick(event) {
     const zipCode = document.getElementById('zip').value;
     const countryCode = document.getElementById('countries').value;
     const feeling = document.getElementById('feeling').value;
-    getCurrentWeather(zipCode, countryCode, feeling);
+    getCurrentWeatherAsync(zipCode, countryCode, feeling).then(data => {
+        //Add new weather entry
+        addWeatherEntry(data);
+        //Update UI with data
+        updateUI();
+    });
 }
 //49546
 // Main Functions
-
-// Add new Weather Entry
-
-function addWeatherEntry(weatherNewEntry) {
-    postData('/new', weatherNewEntry).then(data => {
-        console.log(`new entry posted: 
-        ${JSON.stringify(data)}`);
-        //getData('/all').then(data => console.log(`all data = ${JSON.stringify(data)}`));
-    });
-}
-
 //Open Weather Map API
 
-function getCurrentWeather(zipCode, countryCode, feeling) {
-    getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`).then(data => {
-        const newEntry = { temperature: data.main.temp, date: Date(), feeling: feeling };
-        addWeatherEntry(newEntry);
-    });
+//Question, which is correct or better way to declare function
+// way#1 - async function someFunctionName(zipCode, countryCode, feeling), or
+// way#2 - const someFunctionName = (zipCode, countryCode, feeling) => {}
+async function getCurrentWeatherAsync(zipCode, countryCode, feeling) {
+    try {
+        let newEntry = {};
+        //Question, which way is correct?
+        //await getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`).then(data => {}, or
+        //const data = await getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`)
+        await getData(`${baseURL}?zip=${zipCode},${countryCode}&appid=${apiKey}`).then(data => {
+            newEntry = { temperature: data.main.temp, date: Date(), response: feeling };
+            //Question, why when I use return inside the then method it fail to and I recieve undefind object in line 18 when I call this function?!!
+            // return newEntry;
+        });
+        return newEntry;
+    } catch (error) {
+        console.log('error', error);
+    }
 }
 
+// Add new Weather Entry
+function addWeatherEntry(newEntry) {
+    postData('/new', newEntry).then();
+}
 
-
-
-// postData('/new', { temperature: 21, date: Date(), response: 'some response' }).then(data => {
-//     console.log(data);
-//     getData('/all').then(data => console.log(`all data = ${JSON.stringify(data)}`));
-// });
-
-
+// Update UI
+const updateUI = async () => {
+    //getAll data
+    try {
+        const allData = await getData('/all');
+        const date = document.querySelector('#date');
+        const temp = document.querySelector('#temp');
+        const content = document.querySelector('#content');
+        date.innerHTML = allData[allData.length - 1].date;
+        temp.innerHTML = allData[allData.length - 1].temperature;
+        content.innerHTML = allData[allData.length - 1].response;
+    } catch (error) {
+        console.log('error', error);
+    }
+};
